@@ -91,12 +91,21 @@ export default function App() {
 
   // ── Handlers ──────────────────────────────────────────────
 
-  const handleStartGame = () => {
+  const handleStartGame = (next?: Settings) => {
     initAudio();
+    let names = settings.playerName;
+    if (next) {
+      saveSettings(next);
+      setSoundEnabled(next.soundEnabled);
+      setSettings(next);
+      names = next.playerName;
+    }
+    setShowSetup(false);
     setIsDealing(true);
-    setState(prev => dealCards(prev));
+    setState(prev => dealCards({ ...prev, playerNames: makeNames(names) }));
     setTimeout(() => setIsDealing(false), DEAL_ANIM_MS);
   };
+
 
   const handlePlayCard = (cardId: string) => {
     initAudio();
