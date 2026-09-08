@@ -1,5 +1,5 @@
 import { loadCosmetics, stickerById, themeClass } from '../game/cosmetics';
-import pandaCrest from '../assets/panda-crest.png.asset.json';
+import pandaCrest from '../assets/squirrel-crest-512.webp';
 import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import type { GameState, Suit, TrickCard, Card, CompletedTrick } from '../game/types';
 import { getLegalMoves, teamOf, effectiveSuit, cardStrength } from '../game/engine';
@@ -232,7 +232,7 @@ function TrickArea({ trick, trickWinner, trump, sizePx, phase }: {
       {(
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <img
-            src={pandaCrest.url}
+            src={pandaCrest}
             alt=""
             aria-hidden="true"
             loading="lazy"
