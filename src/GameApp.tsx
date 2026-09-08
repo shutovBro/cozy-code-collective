@@ -13,6 +13,7 @@ import GameTable from './components/GameTable';
 import SettingsScreen from './components/SettingsScreen';
 import ShopScreen from './components/ShopScreen';
 import OnlineLobby from './components/OnlineLobby';
+import MatchSetupScreen from './components/MatchSetupScreen';
 import ProfileScreen from './components/ProfileScreen';
 import { loadProfile, saveProfile, type Profile } from './game/profile';
 import { loadCosmetics, saveCosmetics, applyCardBack, type Cosmetics } from './game/cosmetics';
@@ -80,6 +81,7 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showShop, setShowShop] = useState(false);
   const [showOnline, setShowOnline] = useState(false);
+  const [showSetup, setShowSetup] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [profile, setProfile] = useState<Profile>(() => loadProfile(loadSettings().playerName));
   const [cosmetics, setCosmetics] = useState<Cosmetics>(() => loadCosmetics());
@@ -90,12 +92,21 @@ export default function App() {
 
   // ── Handlers ──────────────────────────────────────────────
 
-  const handleStartGame = () => {
+  const handleStartGame = (next?: Settings) => {
     initAudio();
+    let names = settings.playerName;
+    if (next) {
+      saveSettings(next);
+      setSoundEnabled(next.soundEnabled);
+      setSettings(next);
+      names = next.playerName;
+    }
+    setShowSetup(false);
     setIsDealing(true);
-    setState(prev => dealCards(prev));
+    setState(prev => dealCards({ ...prev, playerNames: makeNames(names) }));
     setTimeout(() => setIsDealing(false), DEAL_ANIM_MS);
   };
+
 
   const handlePlayCard = (cardId: string) => {
     initAudio();
@@ -187,10 +198,22 @@ export default function App() {
     );
   }
 
+  if (state.phase === 'HOME' && showSetup) {
+    return (
+      <MatchSetupScreen
+        settings={settings}
+        stats={stats}
+        onBack={() => setShowSetup(false)}
+        onStart={handleStartGame}
+      />
+    );
+  }
+
   if (state.phase === 'HOME') {
     return (
       <HomeScreen
-        onStart={handleStartGame}
+        onStart={() => setShowSetup(true)}
+
         stats={stats}
         onSettings={() => setShowSettings(true)}
         onShop={() => setShowShop(true)}
