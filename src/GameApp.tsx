@@ -80,6 +80,7 @@ export default function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [showShop, setShowShop] = useState(false);
   const [showOnline, setShowOnline] = useState(false);
+  const [showSetup, setShowSetup] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [profile, setProfile] = useState<Profile>(() => loadProfile(loadSettings().playerName));
   const [cosmetics, setCosmetics] = useState<Cosmetics>(() => loadCosmetics());
