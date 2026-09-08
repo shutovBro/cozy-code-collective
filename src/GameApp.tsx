@@ -197,10 +197,22 @@ export default function App() {
     );
   }
 
+  if (state.phase === 'HOME' && showSetup) {
+    return (
+      <MatchSetupScreen
+        settings={settings}
+        stats={stats}
+        onBack={() => setShowSetup(false)}
+        onStart={handleStartGame}
+      />
+    );
+  }
+
   if (state.phase === 'HOME') {
     return (
       <HomeScreen
-        onStart={handleStartGame}
+        onStart={() => setShowSetup(true)}
+
         stats={stats}
         onSettings={() => setShowSettings(true)}
         onShop={() => setShowShop(true)}
