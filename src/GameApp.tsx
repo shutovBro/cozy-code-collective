@@ -13,6 +13,7 @@ import GameTable from './components/GameTable';
 import SettingsScreen from './components/SettingsScreen';
 import ShopScreen from './components/ShopScreen';
 import OnlineLobby from './components/OnlineLobby';
+import MatchSetupScreen from './components/MatchSetupScreen';
 import ProfileScreen from './components/ProfileScreen';
 import { loadProfile, saveProfile, type Profile } from './game/profile';
 import { loadCosmetics, saveCosmetics, applyCardBack, type Cosmetics } from './game/cosmetics';
