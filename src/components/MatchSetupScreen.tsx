@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { themeClass, TABLE_THEMES } from '../game/cosmetics';
+import { themeClass } from '../game/cosmetics';
 import type { MatchStats } from '../game/stats';
-import type { Settings, Difficulty, GameSpeed, TableTheme } from '../game/settings';
+import type { Settings, Difficulty, GameSpeed } from '../game/settings';
 
 interface Props {
   settings: Settings;
-  stats: MatchStats;
+  stats?: MatchStats;
   onBack: () => void;
   onStart: (next: Settings) => void;
 }
@@ -36,7 +36,7 @@ function Section({ title, hint, children }: { title: string; hint?: string; chil
   );
 }
 
-export default function MatchSetupScreen({ settings, stats, onBack, onStart }: Props) {
+export default function MatchSetupScreen({ settings, onBack, onStart }: Props) {
   const [draft, setDraft] = useState<Settings>(settings);
   const tableClass = themeClass(draft.tableTheme);
   const set = <K extends keyof Settings>(k: K, v: Settings[K]) => setDraft(d => ({ ...d, [k]: v }));
