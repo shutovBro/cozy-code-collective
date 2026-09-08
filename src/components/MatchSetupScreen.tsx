@@ -155,48 +155,6 @@ export default function MatchSetupScreen({ settings, stats, onBack, onStart }: P
           </div>
         </Section>
 
-        <Section title="Стол">
-          <div className="grid grid-cols-3 gap-2">
-            {TABLE_THEMES.map(t => {
-              const unlocked = t.check(stats);
-              const active = draft.tableTheme === t.id;
-              return (
-                <button
-                  key={t.id}
-                  disabled={!unlocked}
-                  onClick={() => set('tableTheme', t.id as TableTheme)}
-                  className={`rounded-xl border overflow-hidden text-[11px] font-semibold transition-all ${
-                    active ? 'border-[#c9a227] ring-1 ring-[#c9a227]/50' : 'border-white/10'
-                  } ${unlocked ? '' : 'opacity-45'}`}
-                >
-                  <span className="block h-9" style={{ background: t.bg }} />
-                  <span className={`block py-1.5 bg-black/40 ${active ? 'text-[#f7e9bd]' : 'text-[#dcead9]'}`}>
-                    {unlocked ? t.name : `🔒 ${t.name}`}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </Section>
-
-        <Section title="Звук">
-          <div className="flex items-center justify-between rounded-2xl border border-white/8 bg-black/28 p-3.5">
-            <span className="text-sm text-[#dcead9]">Звуковые эффекты</span>
-            <button
-              onClick={() => set('soundEnabled', !draft.soundEnabled)}
-              className={`w-12 h-7 rounded-full transition-colors relative ${
-                draft.soundEnabled ? 'bg-[#c9a227]' : 'bg-black/50 border border-white/10'
-              }`}
-              aria-label="Звук"
-            >
-              <span
-                className={`absolute top-1 w-5 h-5 rounded-full bg-[#f5edd2] transition-all ${
-                  draft.soundEnabled ? 'left-6' : 'left-1'
-                }`}
-              />
-            </button>
-          </div>
-        </Section>
       </div>
 
       {/* Footer summary + start */}
